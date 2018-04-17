@@ -8,6 +8,10 @@
 	<packaging>jar</packaging>
 	<version>0.1.0a</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<name>static-logger</name>
 	<url>http://maven.apache.org</url>
 
