@@ -21,6 +21,8 @@ public class Log {
 
 	public static synchronized void info(String message,
 			Object obj, String pattern) {
+		System.out.println("INFO: " + message);
+		System.out.println(obj);
 	}
 
 	public static void warning(String message) {
@@ -37,6 +39,8 @@ public class Log {
 
 	public static synchronized void warning(String message,
 			Object obj, String pattern) {
+		System.out.println("WARN: " + message);
+		System.out.println(obj);
 	}
 
 	public static void error(String message) {
@@ -53,6 +57,8 @@ public class Log {
 
 	public static synchronized void error(String message,
 			Object obj, String pattern) {
+		System.out.println("ERRO: " + message);
+		System.out.println(obj);
 	}
 
 	public static void error(Exception exp) {
@@ -69,5 +75,7 @@ public class Log {
 
 	public static synchronized void error(Exception exp,
 			Object obj, String pattern) {
+		System.out.println("ERRO: " + exp.getMessage());
+		System.out.println(obj);
 	}
 }
