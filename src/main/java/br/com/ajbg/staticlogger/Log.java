@@ -1,10 +1,17 @@
 package br.com.ajbg.staticlogger;
 
+import java.io.PrintStream;
+import java.io.FileOutputStream;
 import java.util.Date;
 
 public class Log {
+	private static String logFile = "logfile.log";
 	private static String mainPat =
 			"[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS][%2$s] ";
+
+	public static void file(String logFile) {
+		Log.logFile = logFile;
+	}
 
 	public static void format(String mainPat) {
 		Log.mainPat = mainPat;
@@ -12,7 +19,14 @@ public class Log {
 
 	private static void log(String pattern, String level, Object... msg) {
 		String main = String.format(mainPat, new Date(), level);
-		System.out.print(main + String.format(pattern, msg) + "\n");
+		try {
+			PrintStream ps = new PrintStream(
+					new FileOutputStream(logFile, true));
+			ps.print(main + String.format(pattern, msg) + "\n");
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void debug(String pattern, Object... msg) {
