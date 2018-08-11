@@ -6,7 +6,7 @@
 	<groupId>br.com.ajbg</groupId>
 	<artifactId>static-logger</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0a</version>
+	<version>0.2a</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
