@@ -1,81 +1,33 @@
 package br.com.ajbg.staticlogger;
 
+import java.util.Date;
+
 public class Log {
-	private static String pattern = "[$HH:$mm:$ss $yyyy-$MM-$dd] " +
-			"$package.$class#$method: $message";
+	private static String mainPat =
+			"[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS][%2$s] ";
 
-	public static void format(String pattern) {
+	public static void format(String mainPat) {
+		Log.mainPat = mainPat;
 	}
 
-	public static void info(String message) {
-		info(message, null, pattern);
+	private static void log(String pattern, String level, Object... msg) {
+		String main = String.format(mainPat, new Date(), level);
+		System.out.print(main + String.format(pattern, msg) + "\n");
 	}
 
-	public static void info(String message, Object obj) {
-		info(message, obj, pattern);
+	public static void debug(String pattern, Object... msg) {
+		log(pattern, "DEBUG", msg);
 	}
 
-	public static void info(String message, String pattern) {
-		info(message, null, pattern);
+	public static void info(String pattern, Object... msg) {
+		log(pattern, " INFO", msg);
 	}
 
-	public static synchronized void info(String message,
-			Object obj, String pattern) {
-		System.out.println("INFO: " + message);
-		System.out.println(obj);
+	public static void warning(String pattern, Object... msg) {
+		log(pattern, " WARN", msg);
 	}
 
-	public static void warning(String message) {
-		warning(message, null, pattern);
-	}
-
-	public static void warning(String message, Object obj) {
-		warning(message, obj, pattern);
-	}
-
-	public static void warning(String message, String pattern) {
-		warning(message, null, pattern);
-	}
-
-	public static synchronized void warning(String message,
-			Object obj, String pattern) {
-		System.out.println("WARN: " + message);
-		System.out.println(obj);
-	}
-
-	public static void error(String message) {
-		error(message, null, pattern);
-	}
-
-	public static void error(String message, Object obj) {
-		error(message, obj, pattern);
-	}
-
-	public static void error(String message, String pattern) {
-		error(message, null, pattern);
-	}
-
-	public static synchronized void error(String message,
-			Object obj, String pattern) {
-		System.out.println("ERRO: " + message);
-		System.out.println(obj);
-	}
-
-	public static void error(Exception exp) {
-		error(exp, null, pattern);
-	}
-
-	public static void error(Exception exp, Object obj) {
-		error(exp, obj, pattern);
-	}
-
-	public static void error(Exception exp, String pattern) {
-		error(exp, null, pattern);
-	}
-
-	public static synchronized void error(Exception exp,
-			Object obj, String pattern) {
-		System.out.println("ERRO: " + exp.getMessage());
-		System.out.println(obj);
+	public static void error(String pattern, Object... msg) {
+		log(pattern, "ERROR", msg);
 	}
 }
