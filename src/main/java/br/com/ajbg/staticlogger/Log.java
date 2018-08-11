@@ -10,6 +10,9 @@ public class Log {
 	private static BlockingQueue<String> queue =
 			new LinkedBlockingDeque<String>();
 	private static LogWriter writer = new LogWriter(queue);
+	static {
+		writer.start();
+	}
 
 	private static String logFile = "logfile.log";
 	private static String mainPat =
@@ -26,7 +29,8 @@ public class Log {
 	private static void log(String pattern, String level, Object... msg) {
 		String main = String.format(mainPat, new Date(), level);
 		queue.add(main + String.format(pattern, msg) + "\n");
-		if (!writer.isAlive()) {
+		if (writer.getState() == Thread.State.TERMINATED) {
+			writer = new LogWriter(queue);
 			writer.start();
 		}
 	}
